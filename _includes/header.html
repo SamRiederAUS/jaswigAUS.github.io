@@ -1,37 +1,78 @@
-<!-- Header Start -->
-<header class="{% if page.permalink != '/' %}marg-bottom{% else %}marg-bottom{% endif %}">
-  <div class="header-purple">
-      <div class="header w-nav">
-          <div class="container">
-              <a href="/" class="logo-container w-nav-brand">
-                  <img src="/img/bombay-studio-logo-filled-02-b.svg" alt="logo" class="logo purple"/>
-              </a>
-              <nav class="nav-menu-container w-nav-menu  desktop-only">
-                  <div class="nav-items-container">
-                      <div class="nav-links-container">
-                          <a href="/contact" class="nav-menu-link white box-nav w-nav-link">Contact</a>
-                      </div>
-                  </div>
-              </nav>
-              <div class="menu-mobile w-nav-button">
-                  <div class="close-menu">Close</div>
-                  <div class="hamburger-menu openNav">
-                      <div class="hamburger-menu-line top"></div>
-                      <div class="hamburger-menu-line center"></div>
-                      <div class="hamburger-menu-line bottom"></div>
-                  </div>
-              </div>
-          </div>
+<header class="container">
+  <div class="header-table">
+    <div class="header-row">
+      <div class="brand">
+        <a class="site-title" href="{{ site.baseurl }}/">
+          {% if page.url == '/' %}
+            <img src="/images/jaswig-logo-white-small.svg" alt="Logo Jaswig">
+          {% else %}
+            <img src="/images/jaswig-logo-small.svg" alt="Logo Jaswig Small">
+          {% endif %}
+        </a>
       </div>
-  </div>
-  <div id="myNav" class="overlay mobile-only" style="visibility:hidden;">
-    <a href="/">
-      <img src="/img/bombay-studio-logo-filled-02.svg" alt="" class="logo purple"/>
-    </a>
-    <a href="javascript:void(0)" class="closebtn" id="closeNav">Close<span>x</span></a>
-    <div class="overlay-content">
-      <a href="/">Home</a>
-      <a href="/contact">Contact</a>
+      <nav class="navigation">
+        <ul class="horizontal">
+          {% assign pages = site.pages | sort: "position"  %}
+          {% for my_page in pages %}
+            {% if my_page.title and my_page.position %}
+            {% if my_page.label contains 'Home' or my_page.label contains 'Products' or my_page.label contains 'Story' or my_page.label contains 'Blog' or my_page.label contains 'Contact' %}
+            <li class="navigation__item nav-item">
+
+              {% if my_page.submenu %}
+                <span class="{% if page.url == my_page.url %} active {% endif %}" >{{ my_page.label }}</span>
+
+                <ul class="navigation__submenu">
+                {% for item in my_page.submenu %}
+                  <li class="navigation__submenu-item">
+                    <a href="{{ item.link }}">{{ item.text }}</a>
+                  </li>
+                {% endfor %}
+                </ul>
+
+              {% else %}
+                <a
+                  class="{% if page.url == my_page.url %} active {% endif %}"
+                  href="{{ my_page.url | prepend: site.baseurl }}">
+                  {{ my_page.label }}
+                </a>
+              {% endif %}
+
+            </li>
+            {% endif %}
+            {% endif %}
+          {% endfor %}
+        </ul>
+        <ul class="horizontal">
+          <li>
+            <a href="{{'/cart' | prepend: site.shopify_eu}}" class="header-card active"><i class="fa fa-shopping-cart"></i></a>
+          </li>
+          <li class="nav-hamburger">
+            <input type="checkbox" id="checkbox_toggle">
+            <label for="checkbox_toggle"><i class="fa fa-bars"></i></label>
+            <div class="nav-mobile">
+              <div class="nav-mobile-inner">
+                <ul>
+                  {% assign pages = site.pages | sort: "position"  %}
+                  {% for my_page in pages %}
+                    {% if my_page.title and my_page.position %}
+                    {% if my_page.label contains 'Home' or my_page.label contains 'Products' or my_page.label contains 'Story' or my_page.label contains 'Blog' or my_page.label contains 'Contact' %}
+                    <li>
+                      {% if page.url == my_page.url %}
+                        <a class="active" href="{{ my_page.url | prepend: site.baseurl }}">{{ my_page.label }}</a>
+                      {% else %}
+                        <a href="{{ my_page.url | prepend: site.baseurl }}">{{ my_page.label }}</a>
+                      {% endif %}
+                    </li>
+                    {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+      </nav>
     </div>
   </div>
-</header><!-- header close -->
+</header>

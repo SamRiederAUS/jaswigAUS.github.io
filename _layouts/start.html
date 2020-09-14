@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  {% include head.html %}
+
+  <body>
+    {% include ga.html %}
+
+    <div id="vue-modal">
+      <div class="video-modal" v-if="modal" v-cloak>
+        <div class="video-modal-background" v-on:click="closeModal"></div>
+        <div class="video-modal-table table">
+          <div class="table-row">
+            <div class="table-cell">
+              <div class="video-modal-wrapper">
+                <div class="video-modal-inner">
+                  <iframe :src.sync="iframeSrc" frameborder="0" allowfullscreen></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% include components/hero.html %}
+
+    {{ content }}
+    {% include footer.html %}
+    {% include cookies-warning.html %}
+  </body>
+
+</html>

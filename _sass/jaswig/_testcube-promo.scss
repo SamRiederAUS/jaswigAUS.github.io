@@ -1,0 +1,28 @@
+.testcube-promo {
+  padding-top: 30px;
+  padding-bottom: 0;
+
+  img {
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  &__text-right {
+    padding-top: 50px;
+  }
+}
+
+@media (min-width: $screen-md-min) {
+  .testcube-promo {
+    padding-top: 100px;
+    padding-bottom: 30px;
+
+    p {
+      max-width: 80%;
+    }
+
+    img {
+      margin-top: 0;
+    }
+  }
+}
